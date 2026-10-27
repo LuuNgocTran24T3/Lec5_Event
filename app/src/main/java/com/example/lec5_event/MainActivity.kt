@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import android.content.Intent
+import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : Activity() {
 
@@ -13,9 +14,9 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val editHoTen = findViewById<EditText>(R.id.editHoTen)
-        val editMssv = findViewById<EditText>(R.id.editMssv)
-        val editEmail = findViewById<EditText>(R.id.editEmail)
+        val editHoTen = findViewById<TextInputEditText>(R.id.editHoTen)
+        val editMssv = findViewById<TextInputEditText>(R.id.editMssv)
+        val editEmail = findViewById<TextInputEditText>(R.id.editEmail)
 
         val rgGioiTinh = findViewById<RadioGroup>(R.id.rgGioiTinh)
         val rbNam = findViewById<RadioButton>(R.id.rbNam)
@@ -28,6 +29,7 @@ class MainActivity : Activity() {
         val cbZalo = findViewById<CheckBox>(R.id.cbZalo)
 
         val btnDangKy = findViewById<Button>(R.id.btnDangKy)
+        val tvThongTinSinhVien = findViewById<TextView>(R.id.tvThongTinSinhVien)
 
         // EVENT 1: EditText - bắt sự kiện nhập dữ liệu
         fun batSuKienNhap(editText: EditText, tenTruong: String) {
@@ -139,6 +141,9 @@ class MainActivity : Activity() {
                 .filter { it.isChecked }
                 .joinToString(", ") { it.text.toString() }
                 .ifEmpty { "Chưa chọn" }
+
+            // Cập nhật giao diện bên dưới cho tvThongTinSinhVien
+            tvThongTinSinhVien.text = "Họ tên: $hoTen\nMSSV: $mssv\nEmail: $email\nGiới tính: $gioiTinh\nMạng xã hội: $mangXaHoi"
 
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("hoTen", hoTen)
